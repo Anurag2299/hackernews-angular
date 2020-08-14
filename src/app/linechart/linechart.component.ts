@@ -41,14 +41,14 @@ export class LinechartComponent implements OnChanges {
   constructor(private newsService: NewsService) {
     this.newsService.votes.subscribe((num) => {
       this.votes = num;
-      console.log(this.votes);
-      console.log('*************');
+      // console.log(this.votes);
+      // console.log('*************');
     });
 
     this.newsService.comment_count.subscribe((num1) => {
       this.comment_count = num1;
-      console.log(this.comment_count);
-      console.log('PPPPPPPPPPPPPrrrPPPP');
+      // console.log(this.comment_count);
+      // console.log('PPPPPPPPPPPPPrrrPPPP');
     });
 
     this.newsService.id.subscribe((num1) => {
@@ -58,18 +58,20 @@ export class LinechartComponent implements OnChanges {
     });
 
     // this.display()
-    console.log('anurag');
+    // console.log('anurag');
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    // console.log(JSON.parse(sessionStorage.getItem('sessionData')));
+    // console.log("%%%%%%%%%%%%%%%%%%%%%")
     // console.log(this.myinput);
     // console.log('qqqqqqqqqqqqqqqqqqqqqqqq');
 
     // this.votes=[]
-    console.log(this.votes);
-    console.log(this.comment_count);
-    console.log(this.id);
-    console.log('@@@@@@@@@@@@@@@@@@@');
+    // console.log(this.votes);
+    // console.log(this.comment_count);
+    // console.log(this.id);
+    // console.log('@@@@@@@@@@@@@@@@@@@');
     this.chartOptions = {
       credits: {
         enabled: false,

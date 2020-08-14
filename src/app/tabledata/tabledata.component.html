@@ -14,7 +14,7 @@
       <th>tittle</th>
     </thead>
     <tbody>
-    <tr *ngFor="let abc of dataSource; let i = index  ">
+    <tr *ngFor="let abc of dataSource  | paginate: { itemsPerPage: 5, currentPage: p } ; let i = index  ">
       <!-- | paginate: { itemsPerPage: 5, currentPage: p }   -->
       <td data-label="Comment">
         {{abc.num_comments}}</td>
@@ -25,6 +25,10 @@
          </button>
        </td>
       <td data-label="tittle" class="tittle">{{abc.title}}
+        <button (click)="filterNews(abc.objectID)">[hide me]</button>
+        <span>{{abc.url}}  by</span>
+        <span> {{abc.author}} {{datediff[i]}} years ago</span> 
+        <!-- <span>~~~~~~~~~~{{dateValue | date: "short"}}</span> -->
       </td>
     </tr>
    </tbody>
@@ -37,7 +41,6 @@
     maxSize="10"
     nextLabel="Next" (pageChange)="p = $event"></pagination-controls>
 </body>
-<!-- <button (click)="sendData()">Send data</button> -->
 <br>
 <br>
 <br>

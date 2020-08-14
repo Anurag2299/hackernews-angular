@@ -13,10 +13,15 @@ import { NewsService } from '../news.service';
   templateUrl: './tabledata.component.html',
   styleUrls: ['./tabledata.component.css'],
 })
-export class TabledataComponent implements OnInit, OnChanges {
+export class TabledataComponent implements OnInit {
   dataSource: any;
   dataSource1: any;
   p: number = 1;
+  temp: number = 0;
+  dateValue = Date.now();
+  datediff=[];
+  days=1000*60*60*24*364;
+
   displayedColumns = ['num_comments', 'points', 'author', 'title'];
   @Output() myoutput: EventEmitter<any> = new EventEmitter();
   outputstring = 'Hi i am your child';
@@ -42,7 +47,14 @@ export class TabledataComponent implements OnInit, OnChanges {
   //   this.myoutput.emit(this.outputstring);
   // }
   ngOnInit() {
-    this.newsService.getNews().subscribe((results) => {
+ if(sessionStorage.length> 0){
+    this.dataSource=JSON.parse(sessionStorage.getItem('sessionData'))
+    this.updateData();
+    // console.log('@#$%^');
+    // console.log(this.dataSource);
+ }   
+else
+ {   this.newsService.getNews().subscribe((results) => {
       if (!results) {
         return;
       }
@@ -50,31 +62,47 @@ export class TabledataComponent implements OnInit, OnChanges {
       this.dataSource = this.dataSource1.hits;
       console.log('@#$%^');
       console.log(this.dataSource);
-      this.update();
+      this.updateData();
       // console.log(this.p)
-    });
+    });}
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    this.update();
-  }
+  // ngOnChanges(changes: SimpleChanges) {
+  //   // this.updateData();
+  // }
 
   votes = [];
   comment_count = [];
   id = [];
-
-  voteChange(value:number) {
+  dataSource2 = [];
+  voteChange(value: number) {
     value = (this.p - 1) * 5 + value;
-    console.log(value);
-    console.log(this.p);
-    console.log('~~~~~~~~~~~~~~~***********************');
+    // console.log(value);
+    // console.log(this.p);
+    // console.log('~~~~~~~~~~~~~~~***********************');
+
     this.dataSource[value].points++;
-    console.log(this.dataSource[value].points);
-    this.update();
+    // console.log(this.dataSource[value].points);
+
+    this.updateData();
   }
 
-  update() {
-    console.log('abc');
+  filterNews(value: number) {
+    this.dataSource2 = this.dataSource.filter((item) => {
+      if (item.objectID != value) {
+        return item;
+      }
+      // console.log(item.objectID)
+      // console.log('~~~~~~~~~~~~~~~***********************');
+    });
+    this.dataSource = this.dataSource2;
+    // console.log(this.dataSource);
+
+    this.updateData();
+  }
+
+  updateData() {
+    // console.log('abc');
     this.votes = [];
     this.comment_count = [];
     this.id = [];
@@ -82,17 +110,23 @@ export class TabledataComponent implements OnInit, OnChanges {
       this.votes.push(this.dataSource[i].points);
       this.comment_count.push(this.dataSource[i].num_comments);
       this.id.push(this.dataSource[i].objectID);
+      this.datediff.push(Math.floor((this.dateValue - this.dataSource[i].created_at_i)/this.days) )
+      // console.log(this.dateValue)
+      // console.log("$$$$$$$$$$$$$$$$$$$$$$$$")
     }
     this.myoutput.emit(this.votes);
-    this.xyz();
+    this.updateService();
     // console.log(this.comment_count);
   }
 
-  xyz() {
+  updateService() {
     this.newsService.votes.next(this.votes);
     // console.log(this.newsService.votes)
     // console.log("*************************************************************")
     this.newsService.comment_count.next(this.comment_count);
     this.newsService.id.next(this.id);
+    sessionStorage.setItem('sessionData', JSON.stringify(this.dataSource));
+    // console.log(JSON.parse(sessionStorage.getItem('sessionData')));
+    // console.log('%%%%%%%%%%%%%%%%%%%%%');
   }
 }
