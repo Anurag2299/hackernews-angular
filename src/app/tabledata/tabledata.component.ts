@@ -30,10 +30,11 @@ export class TabledataComponent implements OnInit {
     // this.newsService.getdata()
  if(sessionStorage.length> 0){
     this.dataSource=JSON.parse(sessionStorage.getItem('sessionData'))
+    this.p=JSON.parse(sessionStorage.getItem('pageNumber'))
     this.updateData();
  }   
 else
- {   this.newsService.getNews(0).subscribe((results) => {
+ {   this.newsService.getNews(this.p).subscribe((results) => {
       if (!results) {
         return;
       }
@@ -109,6 +110,7 @@ else
     this.myoutput.emit(this.votes);
     this.myoutput1.emit(this.id)
     sessionStorage.setItem('sessionData', JSON.stringify(this.dataSource));
+    sessionStorage.setItem('pageNumber', JSON.stringify(this.p));
   }
 
 }
