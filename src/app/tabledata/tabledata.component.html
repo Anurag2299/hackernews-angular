@@ -8,39 +8,43 @@
 <body>
   <table class="table">
     <thead>
-      <th>Comment</th>
-      <th>votes</th>
-      <th>author</th>
-      <th>tittle</th>
+      <th>Comments</th>
+      <th>Vote Count</th>
+      <th>upVote</th>
+      <th>News Details</th>
     </thead>
     <tbody>
-    <tr *ngFor="let abc of dataSource  | paginate: { itemsPerPage: 5, currentPage: p } ; let i = index  ">
-      <!-- | paginate: { itemsPerPage: 5, currentPage: p }   -->
+    <tr *ngFor="let abc of dataSource  ; let i = index  ">
+      <!-- | paginate: { itemsPerPage: 5, currentPage: p } ;  -->
       <td data-label="Comment">
         {{abc.num_comments}}</td>
         <td data-label="votes">{{abc.points}}</td>
        <td data-label="author"> 
-          <button class="material-icons" style="background-color: transparent; border: none; outline: none;" (click)="voteChange(i)">
+          <button class="material-icons down"  (click)="voteChange(i)">
             arrow_drop_up
          </button>
        </td>
-      <td data-label="tittle" class="tittle">{{abc.title}}
-        <button (click)="filterNews(abc.objectID)">[hide me]</button>
-        <span>{{abc.url}}  by</span>
-        <span> {{abc.author}} {{datediff[i]}} years ago</span> 
-        <!-- <span>~~~~~~~~~~{{dateValue | date: "short"}}</span> -->
+      <td data-label="tittle" class="tittle">
+        <span class="description">{{abc.title}}</span>
+        <span class="url"> <a style ="text-decoration: none;color: #6b6d70;;" href={{abc.url}}>({{abc.url  | truncate : 36 }})</a>  by</span>
+        <span class="author" style=" font-weight: bold;"> {{abc.author}} </span> 
+        <span class="time">{{datediff[i]}} years ago</span>
+        <button  class= "hide"  (click)="filterNews(abc.objectID)">[<span style = "font-weight: bolder;">hide</span>]</button>
       </td>
     </tr>
    </tbody>
   </table>
-  <pagination-controls  
+  <p style="color:orangered ;float:right;" >
+    <button class="hide" style="color:orangered" (click)="decrement()">Previous</button>|<button class="hide" style="color:orangered" (click)="increment()">Next</button>
+  </p> 
+  <!-- <pagination-controls  
     class="indicator"                
     autoHide="true"
     responsive="true"
     previousLabel="Previous"
     maxSize="10"
-    nextLabel="Next" (pageChange)="p = $event"></pagination-controls>
-</body>
+    nextLabel="Next" (pageChange)="p = $event"></pagination-controls> -->
+</body> 
 <br>
 <br>
 <br>

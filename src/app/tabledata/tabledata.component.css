@@ -13,6 +13,7 @@ body{
   width: 100%;
   border-collapse: collapse;
 }
+
 .table td,.table th{
  padding: 12px 15px;
  /* border: 1px solid black; */
@@ -25,12 +26,42 @@ body{
 .table th{
   background-color: orangered;
   color: white;
+  text-align: left;
 }
 .table tbody tr:nth-child(even){
   background-color: lightgrey;
 }
 .table tbody tr:nth-child(odd){
  background-color: white;
+}
+.description{
+  font-size: 1.3em;
+  font-weight: 600;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.down{
+  background-color: transparent; 
+  border: none; 
+  outline: none;
+}
+
+.down:hover{
+  cursor: pointer;
+}
+
+.hide{
+  background-color: transparent;
+   border: none; 
+   outline: none;
+   font-weight: bold;
+}
+.hide:hover{
+  cursor: pointer;
+}
+
+.time ,.url{
+  color: #6b6d70;
 }
 
 /* responsive */
@@ -65,8 +96,11 @@ body{
  font-weight: bold;
  text-align:left;
  color:#090de3 ;
- 
- 
+ }
+ .description{
+  font-size: 1em;
+  font-weight: 600;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 }

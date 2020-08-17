@@ -11,67 +11,16 @@ import { NewsService } from '../news.service';
 export class LinechartComponent implements OnChanges {
   chartOptions: {};
   votes = [];
-  comment_count = [];
   id = [];
   Highcharts = Highcharts;
-  temp1 = [
-    75,
-    409,
-    60,
-    144,
-    68,
-    302,
-    47,
-    167,
-    38,
-    41,
-    48,
-    52,
-    43,
-    23,
-    113,
-    29,
-    12,
-    59,
-    11,
-    28,
-  ];
 
   @Input() myinput;
-  constructor(private newsService: NewsService) {
-    this.newsService.votes.subscribe((num) => {
-      this.votes = num;
-      // console.log(this.votes);
-      // console.log('*************');
-    });
-
-    this.newsService.comment_count.subscribe((num1) => {
-      this.comment_count = num1;
-      // console.log(this.comment_count);
-      // console.log('PPPPPPPPPPPPPrrrPPPP');
-    });
-
-    this.newsService.id.subscribe((num1) => {
-      this.id = num1;
-      // console.log(num1)
-      // console.log("%%%%%%%%%%%%%%%%%%%%%")
-    });
-
-    // this.display()
-    // console.log('anurag');
+  @Input() myinput1;
+  constructor() {
+   
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    // console.log(JSON.parse(sessionStorage.getItem('sessionData')));
-    // console.log("%%%%%%%%%%%%%%%%%%%%%")
-    // console.log(this.myinput);
-    // console.log('qqqqqqqqqqqqqqqqqqqqqqqq');
-
-    // this.votes=[]
-    // console.log(this.votes);
-    // console.log(this.comment_count);
-    // console.log(this.id);
-    // console.log('@@@@@@@@@@@@@@@@@@@');
     this.chartOptions = {
       credits: {
         enabled: false,
@@ -97,7 +46,7 @@ export class LinechartComponent implements OnChanges {
         accessibility: {
           // rangeDescription: 'Range: 2010 to 2017',
         },
-        categories: this.id,
+        categories: this.myinput1,
       },
 
       legend: {
@@ -118,8 +67,7 @@ export class LinechartComponent implements OnChanges {
       series: [
         {
           name: 'votes',
-          // data: [43934, 52503, 687, 69658, 97031, 119931, 137133, 154175],
-          data: this.votes,
+          data: this.myinput,
         },
       ],
 
@@ -140,10 +88,6 @@ export class LinechartComponent implements OnChanges {
         ],
       },
     };
-    HC_exporting(Highcharts);
-
-    setTimeout(() => {
-      window.dispatchEvent(new Event('resize'));
-    }, 300);
+    // HC_exporting(Highcharts);
   }
 }

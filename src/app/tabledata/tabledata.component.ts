@@ -3,8 +3,6 @@ import {
   OnInit,
   Output,
   EventEmitter,
-  OnChanges,
-  SimpleChanges,
 } from '@angular/core';
 import { NewsService } from '../news.service';
 
@@ -14,9 +12,9 @@ import { NewsService } from '../news.service';
   styleUrls: ['./tabledata.component.css'],
 })
 export class TabledataComponent implements OnInit {
-  dataSource: any;
-  dataSource1: any;
-  p: number = 1;
+  dataSource: any=[];
+  dataSource1: any=[];
+  p: number = 0;
   temp: number = 0;
   dateValue = Date.now();
   datediff=[];
@@ -24,67 +22,68 @@ export class TabledataComponent implements OnInit {
 
   displayedColumns = ['num_comments', 'points', 'author', 'title'];
   @Output() myoutput: EventEmitter<any> = new EventEmitter();
+  @Output() myoutput1:EventEmitter<any>= new EventEmitter();
   outputstring = 'Hi i am your child';
-  constructor(private newsService: NewsService) {
-    this.newsService.votes.subscribe((num) => {
-      this.votes = num;
-      // let www= num
-      // console.log(www)
-    });
-    this.newsService.comment_count.subscribe((num1) => {
-      this.comment_count = num1;
-      // console.log(num1)
-      // console.log("%%%%%%%%%%%%%%%%%%%%%")
-    });
-    this.newsService.id.subscribe((num1) => {
-      this.id = num1;
-      // console.log(num1)
-      // console.log("%%%%%%%%%%%%%%%%%%%%%")
-    });
+  constructor(public newsService: NewsService) {
   }
-
-  // sendData(){
-  //   this.myoutput.emit(this.outputstring);
-  // }
   ngOnInit() {
+    // this.newsService.getdata()
  if(sessionStorage.length> 0){
     this.dataSource=JSON.parse(sessionStorage.getItem('sessionData'))
     this.updateData();
-    // console.log('@#$%^');
-    // console.log(this.dataSource);
  }   
 else
- {   this.newsService.getNews().subscribe((results) => {
+ {   this.newsService.getNews(0).subscribe((results) => {
       if (!results) {
         return;
       }
       this.dataSource1 = results;
       this.dataSource = this.dataSource1.hits;
-      console.log('@#$%^');
-      console.log(this.dataSource);
       this.updateData();
-      // console.log(this.p)
     });}
   }
-
-  // ngOnChanges(changes: SimpleChanges) {
-  //   // this.updateData();
-  // }
 
   votes = [];
   comment_count = [];
   id = [];
   dataSource2 = [];
   voteChange(value: number) {
-    value = (this.p - 1) * 5 + value;
-    // console.log(value);
-    // console.log(this.p);
-    // console.log('~~~~~~~~~~~~~~~***********************');
-
+    // value = (this.p - 1) * 5 + value;
     this.dataSource[value].points++;
-    // console.log(this.dataSource[value].points);
-
     this.updateData();
+  }
+
+  increment(){
+    this.p++
+    this.newsService.getNews(this.p).subscribe((results) => {
+      if (!results) {
+        return;
+      }
+      this.dataSource1 = results;
+      this.dataSource = this.dataSource1.hits;
+      this.updateData();
+    });
+  }
+
+  decrement()
+  {
+    if(this.p!==0)
+    {
+      this.p--
+      this.newsService.getNews(this.p).subscribe((results) => {
+        if (!results) {
+          return;
+        }
+        this.dataSource1 = results;
+        this.dataSource = this.dataSource1.hits;
+          this.updateData();
+      });
+    
+    }
+    else{
+      alert("this is 1st page")
+    }
+    
   }
 
   filterNews(value: number) {
@@ -92,41 +91,24 @@ else
       if (item.objectID != value) {
         return item;
       }
-      // console.log(item.objectID)
-      // console.log('~~~~~~~~~~~~~~~***********************');
     });
     this.dataSource = this.dataSource2;
-    // console.log(this.dataSource);
-
     this.updateData();
   }
 
   updateData() {
-    // console.log('abc');
     this.votes = [];
-    this.comment_count = [];
+    // this.comment_count = [];
     this.id = [];
     for (let i = 0; i < this.dataSource.length; i++) {
       this.votes.push(this.dataSource[i].points);
-      this.comment_count.push(this.dataSource[i].num_comments);
+      // this.comment_count.push(this.dataSource[i].num_comments);
       this.id.push(this.dataSource[i].objectID);
       this.datediff.push(Math.floor((this.dateValue - this.dataSource[i].created_at_i)/this.days) )
-      // console.log(this.dateValue)
-      // console.log("$$$$$$$$$$$$$$$$$$$$$$$$")
     }
     this.myoutput.emit(this.votes);
-    this.updateService();
-    // console.log(this.comment_count);
+    this.myoutput1.emit(this.id)
+    sessionStorage.setItem('sessionData', JSON.stringify(this.dataSource));
   }
 
-  updateService() {
-    this.newsService.votes.next(this.votes);
-    // console.log(this.newsService.votes)
-    // console.log("*************************************************************")
-    this.newsService.comment_count.next(this.comment_count);
-    this.newsService.id.next(this.id);
-    sessionStorage.setItem('sessionData', JSON.stringify(this.dataSource));
-    // console.log(JSON.parse(sessionStorage.getItem('sessionData')));
-    // console.log('%%%%%%%%%%%%%%%%%%%%%');
-  }
 }

@@ -16,10 +16,18 @@ describe('LinechartComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(LinechartComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+   
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  // it('input case for myinput', () => {
+  //   component.myinput=[10,20]
+  //   fixture.detectChanges();
+  //   expect(fixture.nativeElement.querySelector('h1').textContent).toBe(' 10,20');
+  // });
+
+  // it('input case myinput1 ', () => {
+  //   component.myinput1=[10,20]
+  //   fixture.detectChanges();
+  //   expect(fixture.nativeElement.querySelector('h1').textContent).toBe(' ');
+  // });
 });

@@ -9,11 +9,15 @@ import { Component } from '@angular/core';
 
 export class AppComponent {
   title = 'hackernews';
+
   inputvariable=[];
+  inputvariable1=[];
 
   getdata(value:any){
-    console.log(value)
     this.inputvariable=value
-    console.log("+++++++++++++++++++++")
+  }
+
+  getdata1(value:any){
+    this.inputvariable1=value
   }
 }

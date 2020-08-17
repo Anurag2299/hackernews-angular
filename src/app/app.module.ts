@@ -10,6 +10,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { HttpClientModule } from '@angular/common/http';
 import {NewsService} from './news.service';
+import { TruncateModule } from 'ng2-truncate';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import {NewsService} from './news.service';
     HighchartsChartModule,
     HttpClientModule,
     NgxPaginationModule,
+    TruncateModule,
   ],
   providers: [NewsService],
   bootstrap: [AppComponent]
