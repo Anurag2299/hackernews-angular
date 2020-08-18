@@ -16,6 +16,8 @@ export class TabledataComponent implements OnInit {
   dataSource1: any=[];
   p: number = 0;
   temp: number = 0;
+  bookmarkpage:number=0;
+  toggle:boolean= false;
   dateValue = Date.now();
   datediff=[];
   days=1000*60*60*24*364;
@@ -27,20 +29,24 @@ export class TabledataComponent implements OnInit {
   constructor(public newsService: NewsService) {
   }
   ngOnInit() {
-    // this.newsService.getdata()
  if(sessionStorage.length> 0){
     this.dataSource=JSON.parse(sessionStorage.getItem('sessionData'))
     this.p=JSON.parse(sessionStorage.getItem('pageNumber'))
+    this.bookmarkpage=JSON.parse(localStorage.getItem('bookpage'))
     this.updateData();
  }   
 else
- {   this.newsService.getNews(this.p).subscribe((results) => {
+ { 
+  this.bookmarkpage=JSON.parse(localStorage.getItem('bookpage'))
+   this.p=this.bookmarkpage 
+    this.newsService.getNews(this.p).subscribe((results) => {
       if (!results) {
         return;
       }
       this.dataSource1 = results;
       this.dataSource = this.dataSource1.hits;
       this.updateData();
+      
     });}
   }
 
@@ -54,6 +60,28 @@ else
     this.updateData();
   }
 
+  bookmark(){
+    this.toggle=!this.toggle
+    if(this.p==this.bookmarkpage){
+      this.toggle=false
+      this.bookmarkpage=0
+      localStorage.setItem('bookpage', JSON.stringify(this.bookmarkpage));
+    }
+    if(this.toggle){
+       this.bookmarkpage=this.p
+       localStorage.setItem('bookpage', JSON.stringify(this.bookmarkpage));
+    }
+    // console.log(this.bookmarkpage)
+    }
+
+    buttonBookmark(){
+      this.toggle=false
+        if(this.p==this.bookmarkpage){
+          this.toggle=true
+        }
+   
+  }
+
   increment(){
     this.p++
     this.newsService.getNews(this.p).subscribe((results) => {
@@ -62,6 +90,7 @@ else
       }
       this.dataSource1 = results;
       this.dataSource = this.dataSource1.hits;
+      this.buttonBookmark();
       this.updateData();
     });
   }
@@ -77,12 +106,13 @@ else
         }
         this.dataSource1 = results;
         this.dataSource = this.dataSource1.hits;
+        this.buttonBookmark();
           this.updateData();
       });
     
     }
     else{
-      alert("this is 1st page")
+      alert("you are in 1st page")
     }
     
   }
@@ -111,6 +141,7 @@ else
     this.myoutput1.emit(this.id)
     sessionStorage.setItem('sessionData', JSON.stringify(this.dataSource));
     sessionStorage.setItem('pageNumber', JSON.stringify(this.p));
+    this.buttonBookmark();
   }
 
 }

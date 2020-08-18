@@ -80,6 +80,20 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('hackernews');
   });
 
+  it('should assign the vote',()=>{
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    app.getdata([10,20])
+    expect(app.inputvariable).toContain(10);
+  })
+
+  it('should assign the id',()=>{
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    app.getdata1([10,20])
+    expect(app.inputvariable1).toContain(10);
+  })
+
   // it('should render title', () => {
   //   const fixture = TestBed.createComponent(AppComponent);
   //   fixture.detectChanges();

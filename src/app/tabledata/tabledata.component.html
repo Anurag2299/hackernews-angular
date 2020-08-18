@@ -6,6 +6,12 @@
   <title>Document</title>
 </head>
 <body>
+  <div>
+  <button (click)="bookmark()" *ngIf="toggle" class="material-icons bookmark ">turned_in</button>
+   <button (click)="bookmark()" *ngIf="!toggle" class="material-icons bookmark">bookmark_border</button>
+  </div>   
+  <br>
+  <br>
   <table class="table">
     <thead>
       <th>Comments</th>
@@ -26,7 +32,7 @@
        </td>
       <td data-label="tittle" class="tittle">
         <span class="description">{{abc.title}}</span>
-        <span class="url"> <a style ="text-decoration: none;color: #6b6d70;;" href={{abc.url}}>({{abc.url  | truncate : 36 }})</a>  by</span>
+        <span class="url"> <a style ="text-decoration: none;color: #6b6d70;;" href={{abc.url}}>({{abc.url  | truncate : 18 }})</a>  by</span>
         <span class="author" style=" font-weight: bold;"> {{abc.author}} </span> 
         <span class="time">{{datediff[i]}} years ago</span>
         <button  class= "hide"  (click)="filterNews(abc.objectID)">[<span style = "font-weight: bolder;">hide</span>]</button>

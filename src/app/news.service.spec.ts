@@ -47,7 +47,7 @@ describe('NewsService', () => {
       expect(testPost).toBe(posts);
     })
 
-    const req = httpTestCtrl.expectOne('https://hn.algolia.com/api/v1/search?tags=front_page')
+    const req = httpTestCtrl.expectOne('https://hn.algolia.com/api/v1/search?query=front_page&hitsPerPage=10&page=0')
     expect(req.cancelled).toBeFalsy();
     expect(req.request.responseType).toEqual('json');
     req.flush(testPost)
