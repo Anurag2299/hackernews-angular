@@ -26,7 +26,7 @@
         {{abc.num_comments}}</td>
         <td data-label="votes">{{abc.points}}</td>
        <td data-label="author"> 
-          <button class="material-icons down"  (click)="voteChange(i)">
+          <button class="material-icons down" id="downbutton" (click)="voteChange(i)">
             arrow_drop_up
          </button>
        </td>
@@ -41,7 +41,7 @@
    </tbody>
   </table>
   <p style="color:orangered ;float:right;" >
-    <button class="hide" style="color:orangered" (click)="decrement()">Previous</button>|<button class="hide" style="color:orangered" (click)="increment()">Next</button>
+    <button class="hide testing1" style="color:orangered" (click)="decrement()">Previous</button>|<button class="hide testing" style="color:orangered" (click)="increment()">Next</button>
   </p> 
   <!-- <pagination-controls  
     class="indicator"                
