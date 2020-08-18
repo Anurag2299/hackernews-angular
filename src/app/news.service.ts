@@ -13,6 +13,10 @@ export class NewsService {
  
   
   getNews(value){
+    if(value== null)
+    {
+      return this.http.get('https://hn.algolia.com/api/v1/search?query=front_page&hitsPerPage=10&page=0');
+    }
     return this.http.get(this.serviceUrl+value);
   }
 
