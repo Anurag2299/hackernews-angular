@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 
 import { TabledataComponent } from './tabledata.component';
 import { NewsService } from '../news.service';
@@ -31,6 +31,19 @@ describe('TabledataComponent', () => {
     httpTestCtrl = TestBed.get(HttpTestingController)
     service = TestBed.get(NewsService);
   });
+
+  it('bookmark button clicked',fakeAsync(()=>{
+    spyOn(component, 'bookmark').and.callThrough();
+    component.toggle=false;
+    let button = fixture.debugElement.nativeElement.querySelector('.bookmark');
+    button.click();
+    tick();
+    console.log(component.toggle+"######################################")
+    expect(component.bookmark).toHaveBeenCalled();
+    // fixture.whenStable().then(() => {
+    //   expect(component.bookmark).toHaveBeenCalled();
+    // });
+  }))
 
   // fit("temp",()=>{
   //   let temp=575

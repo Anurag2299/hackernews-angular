@@ -71,7 +71,6 @@ else
        this.bookmarkpage=this.p
        localStorage.setItem('bookpage', JSON.stringify(this.bookmarkpage));
     }
-    // console.log(this.bookmarkpage)
     }
 
     buttonBookmark(){
