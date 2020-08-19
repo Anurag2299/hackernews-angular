@@ -1,0 +1,122 @@
+.indicator{
+  float: right;
+}
+
+body{
+  margin:0;
+  padding: 10px;
+}
+*{
+  box-sizing: border-box;
+}
+.table{
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table td,.table th{
+ padding: 12px 15px;
+ /* border: 1px solid black; */
+ text-align: center;
+}
+.table .tittle{
+  
+  text-align: left;
+}
+.table th{
+  background-color: orangered;
+  color: white;
+  text-align: left;
+}
+.table tbody tr:nth-child(even){
+  background-color: lightgrey;
+}
+.table tbody tr:nth-child(odd){
+ background-color: white;
+}
+.description{
+  font-size: 1.3em;
+  font-weight: 600;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.bookmark{
+  background-color: transparent; 
+  border: none; 
+  outline: none;
+  float: right;
+  color: black;
+  cursor: pointer;
+
+}
+
+.down{
+  background-color: transparent; 
+  border: none; 
+  outline: none;
+}
+
+.down:hover{
+  cursor: pointer;
+}
+
+.hide{
+  background-color: transparent;
+   border: none; 
+   outline: none;
+   font-weight: bold;
+}
+.hide:hover{
+  cursor: pointer;
+}
+
+.time ,.url{
+  color: #6b6d70;
+}
+
+/* responsive */
+@media(max-width: 700px)
+{
+  .table td,.table th{
+    border: 1px solid black;
+  }
+.table thead{
+ display: none;
+   
+}
+.table, .table tbody, .table tr, .table td{
+   display: block;
+   width: 100%;
+   /* border: 1px solid black; */
+}
+.table tr{
+   margin-bottom: 15px;
+}
+.table td{
+   text-align: center;
+   padding-left: 30%;
+   position: relative;
+}
+.table td::before{
+ content: attr(data-label);
+ position: absolute;
+ left: 0;
+ width: 30%;
+ padding-left: 15px;
+ font-weight: bold;
+ text-align:left;
+ color:#090de3 ;
+ }
+ .description{
+  font-size: 1em;
+  font-weight: 600;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+/* th button .bookmark{
+  position: absolute;
+  top: 0;
+  right: 0;
+} */
+
+}
