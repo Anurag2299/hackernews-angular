@@ -68,10 +68,11 @@ else
       this.bookmarkpage=0
       localStorage.setItem('bookpage', JSON.stringify(this.bookmarkpage));
     }
-    if(this.toggle){
+    else if(this.toggle){
        this.bookmarkpage=this.p
        localStorage.setItem('bookpage', JSON.stringify(this.bookmarkpage));
     }
+    // console.log(this.toggle)
     }
 
     buttonBookmark(){

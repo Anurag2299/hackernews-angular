@@ -20,24 +20,24 @@
       <th>News Detail</th>
     </thead>
     <tbody>
-    <tr *ngFor="let abc of dataSource  ; let i = index  ">
+    <tr *ngFor="let data of dataSource  ; let i = index  ">
       <!-- | paginate: { itemsPerPage: 5, currentPage: p } ;  -->
       <td data-label="Comment">
-        {{abc.num_comments}}</td>
-        <td data-label="votes">{{abc.points}}</td>
+        {{data.num_comments}}</td>
+        <td data-label="votes">{{data.points}}</td>
        <td data-label="author"> 
           <button class="material-icons down" id="downbutton" (click)="voteChange(i)">
             arrow_drop_up
          </button>
        </td>
       <td data-label="tittle" class="tittle">
-        <span class="description">{{abc.title}}</span>
-        <span class="url"> <a style ="text-decoration: none;color: #6b6d70;;" href={{abc.url}}>({{abc.url | truncate : 18 }})</a>  by</span> 
+        <span class="description">{{data.title}}</span>
+        <span class="url"> <a style ="text-decoration: none;color: #6b6d70;;" href={{data.url}}>({{data.url | truncate : 18 }})</a>  by</span> 
         <!-- | truncate : 18 -->
-        <span class="author" style=" font-weight: bold;"> {{abc.author}} </span> 
+        <span class="author" style=" font-weight: bold;"> {{data.author}} </span> 
         <span class="time">{{datediff[i]}} years ago</span>
-        <!-- <h4>{{abc.created_at_i | date :"short"}}</h4> -->
-        <button  class= "hide testing2"  (click)="filterNews(abc.objectID)">[<span style = "font-weight: bolder;">hide</span>]</button>
+        <!-- <h4>{{data.created_at_i | date :"short"}}</h4> -->
+        <button  class= "hide testing2"  (click)="filterNews(data.objectID)">[<span style = "font-weight: bolder;">hide</span>]</button>
       </td>
     </tr>
    </tbody>
