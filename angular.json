@@ -44,7 +44,7 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "baseHref" :  "https://anurag2299.github.io/hackernews-angular",
+              
               "budgets": [
                 {
                   "type": "initial",
