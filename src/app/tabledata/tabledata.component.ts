@@ -22,11 +22,15 @@ export class TabledataComponent implements OnInit {
   datediff=[];
   days=1000*60*60*24*364;
 
-  displayedColumns = ['num_comments', 'points', 'author', 'title'];
+  votes = [];
+  comment_count = [];
+  id = [];
+  dataSource2 = [];
+
+  // displayedColumns = ['num_comments', 'points', 'author', 'title'];
   @Output() myoutput: EventEmitter<any> = new EventEmitter();
   @Output() myoutput1:EventEmitter<any>= new EventEmitter();
-  outputstring = 'Hi i am your child';
-  constructor(public newsService: NewsService) {
+  constructor(private newsService: NewsService) {
   }
   ngOnInit() {
  if(sessionStorage.length> 0){
@@ -50,10 +54,7 @@ else
     });}
   }
 
-  votes = [];
-  comment_count = [];
-  id = [];
-  dataSource2 = [];
+
   voteChange(value: number) {
     // value = (this.p - 1) * 5 + value;
     this.dataSource[value].points++;
